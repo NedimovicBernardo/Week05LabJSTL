@@ -49,7 +49,6 @@ public class ShoppingListServlet extends HttpServlet {
         {
             items.remove(radio);
             session.setAttribute("item", items);
-            session.setAttribute("username", radio);
         }
         if (request.getParameter("action").equals("logout")) 
         {
