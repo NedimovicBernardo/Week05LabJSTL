@@ -13,9 +13,17 @@ import javax.servlet.http.HttpSession;
  */
 public class ShoppingListServlet extends HttpServlet {
 
+    ArrayList<String> items = new ArrayList<>();
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        HttpSession session = request.getSession();
+        if (request.getParameter("action").equals("logout")) 
+        {
+            items.clear();
+            session.setAttribute("username", null);
+            session.invalidate();
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
@@ -25,8 +33,7 @@ public class ShoppingListServlet extends HttpServlet {
         
         String radio = (String) request.getParameter("radio");
         
-        String writtenItem = (String) session.getAttribute("addNewItem");
-        ArrayList items = new ArrayList();
+        String writtenItem = (String) request.getParameter("addNewItem");
         
         if (request.getParameter("action").equals("register")) 
         {
@@ -36,12 +43,13 @@ public class ShoppingListServlet extends HttpServlet {
         if (request.getParameter("action").equals("add")) 
         {
             items.add(writtenItem);
-            session.setAttribute("item", items);
+            request.setAttribute("item", items);
         }
         if (request.getParameter("action").equals("delete")) 
         {
             items.remove(radio);
             session.setAttribute("item", items);
+            session.setAttribute("username", radio);
         }
         if (request.getParameter("action").equals("logout")) 
         {
