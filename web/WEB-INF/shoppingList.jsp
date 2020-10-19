@@ -29,7 +29,7 @@
             <ul>
                 <c:forEach items="${item}" var="newItem">
                     
-                    <li><input type="radio" name="radio" value="${newItem.get()}"><c:out value="${newItem.get()}"/></li> 
+                    <li><input type="radio" name="radio" value="${newItem}"><c:out value="${newItem}"/></li> 
                     
                 </c:forEach>
             </ul>
